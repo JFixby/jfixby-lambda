@@ -4,40 +4,102 @@ import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class LambdaImage {
 
-	public interface Function2D {
+	public interface F {
 		float value(int x, int y);
 	}
 
-	public interface Function2DOperator {
-		Function2D apply(Function2D f);
+	public interface A {
+		F apply(F f);
 	}
 
-	public interface Operation {
-		Function2D apply(Function2D a, Function2D b);
+	public interface Fop {
+		F apply(F a, F b);
+	}
+
+	public interface Aop {
+		A apply(A a, A b);
+	}
+
+	public interface Aswitch {
+		A value(boolean value);
+	}
+
+	public interface AVec {
+		A index(int i);
+	}
+
+	public interface AUnitVector {
+		AVec index(int k);
+	}
+
+	public interface AVecScalarOp {
+		AVec apply(AVec vector, A k);
+	}
+
+	public interface AVecVectorOp {
+		AVec apply(AVec a, AVec b);
+	}
+
+	public interface Operator {
+		AVec apply(F f);
+	}
+
+	public interface AVecProjector {
+		float value(AVec V);
+	}
+
+	public interface Aproperty {
+		float value(A a);
 	}
 
 	public static void main(String[] args) {
 		DesktopAssembler.setup();
 
-		Function2D image = (x, y) -> 0;
+		F FZero = (x, y) -> 0f;
+		F FOne = (x, y) -> 1f;
 
-		Function2DOperator dFx = f -> ((x, y) -> (f.value(x + 1, y) - f.value(x - 1, y)) / 2f);
-		Function2DOperator dFy = f -> ((x, y) -> (f.value(x, y + 1) - f.value(x, y - 1)) / 2f);
+		A dFdx = f -> ((x, y) -> (f.value(x + 1, y) - f.value(x - 1, y)) / 2f);
+		A dFdy = f -> ((x, y) -> (f.value(x, y + 1) - f.value(x, y - 1)) / 2f);
 
-		Function2DOperator GradXX = f -> dFx.apply(dFx.apply(f));
-		Function2DOperator GradXY = f -> dFx.apply(dFy.apply(f));
-		Function2DOperator GradYX = f -> dFy.apply(dFx.apply(f));
-		Function2DOperator GradYY = f -> dFy.apply(dFy.apply(f));
+		Fop FplusF = (a, b) -> ((x, y) -> (a.value(x, y) + b.value(x, y)));
+		Fop FmuliplyF = (a, b) -> ((x, y) -> (a.value(x, y) * b.value(x, y)));
 
-		Operation multiply = (f, g) -> ((x, y) -> (f.value(x, y) * g.value(x, y)));
-		Operation substract = (f, g) -> ((x, y) -> (f.value(x, y) - g.value(x,y)));
+		A A0 = f -> FZero;
+		A A1 = f -> FOne;
 
-		Function2DOperator GardXXYY = f -> multiply.apply(GradXX.apply(f), GradYY.apply(f));
-		Function2DOperator GradXYYX = f -> multiply.apply(GradXY.apply(f), GradYX.apply(f));
-		Function2DOperator normGrad = f -> substract.apply(GardXXYY.apply(f), GradXYYX.apply(f));
+		// a: f->F
+		// b: f->F
+		Aop FFplusFF = (a, b) -> (f -> FplusF.apply(a.apply(f), b.apply(f)));
+		Aop FFmultiplyFF = (a, b) -> (f -> FmuliplyF.apply(a.apply(f), b.apply(f)));
 
-		Function2D sketchy = normGrad.apply(image);
+		Aswitch FnBoolean = flag -> {
+			if (flag)
+				return A1;
+			return A0;
+		};
 
+		AUnitVector Ek = k -> (i -> FnBoolean.value(i == k));
+		AVec E0 = Ek.index(0);
+		AVec E1 = Ek.index(1);
+
+		AVecScalarOp F2FVecMupliplyK = (v, k) -> (i -> FFmultiplyFF.apply(v.index(i), k));
+		AVecVectorOp F2FVecSum = (a, b) -> (i -> FFplusFF.apply(a.index(i), b.index(i)));
+
+		Operator gradient = f -> F2FVecSum.apply(F2FVecMupliplyK.apply(E0, dFdx), F2FVecMupliplyK.apply(E1, dFdy));
+
+		F image = (x, y) -> (-1 * (cos(2 * x) + cos(2 * y)) * 2);
+		AVec gradImage = gradient.apply(image);
+		// L.d("sketchy", sketchy.toString());
+
+		F gradX = dFdx.apply(image);
+
+//		A gradX = gradImage.index(0);
+//		A gradY = gradImage.index(1);
+
+	}
+
+	static float cos(double x) {
+		return (float) Math.cos(x);
 	}
 
 	private static float abs(float value) {
