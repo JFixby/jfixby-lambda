@@ -146,10 +146,26 @@ public class LambdaImage {
 
 		F sketchy = norm2_a.apply(gradF);
 		F sketchy2 = ((x, y) -> sqrt(square(gradX.value(x, y)) + square(gradY.value(x, y))));
+		sketchy = enhance(sketchy);
+		sketchy2 = enhance(sketchy2);
 
 		drop("sketchy.png", sketchy);
 		drop("sketchy2.png", sketchy2);
 
+	}
+
+	private static F enhance(F sketchy) {
+		sketchy = invert(sketchy);
+		sketchy = power2(sketchy);
+		return sketchy;
+	}
+
+	private static F power2(F sketchy) {
+		return (x, y) -> square(sketchy.value(x, y));
+	}
+
+	private static F invert(F sketchy) {
+		return (x, y) -> (1 - sketchy.value(x, y));
 	}
 
 	private static F load(String file_name) throws IOException {
