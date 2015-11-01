@@ -1,16 +1,58 @@
 package com.jfixby.lambda.test;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import com.jfixby.cmns.api.color.Color;
+import com.jfixby.cmns.api.color.Colors;
+import com.jfixby.cmns.api.filesystem.File;
+import com.jfixby.cmns.api.filesystem.LocalFileSystem;
+import com.jfixby.cmns.api.image.ColorFunction;
+import com.jfixby.cmns.api.image.ColorFunctionSpecs;
+import com.jfixby.cmns.api.image.ImageProcessing;
+import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class LambdaImage {
 
 	public interface F {
-		float value(int x, int y);
+		double value(double x, double y);
 	}
 
 	public interface A {
 		F apply(F f);
 	}
+
+	public interface FVec {
+		F index(int i);
+	}
+
+	public interface FUnitVec {
+		FVec index(int i);
+	}
+
+	public interface G {
+		FVec apply(F f);
+	}
+
+	public interface FSwitch {
+		F value(boolean k);
+	}
+
+	public interface FVecOP {
+		FVec apply(FVec a, FVec b);
+	}
+
+	public interface FVecF {
+		F apply(FVec v);
+	}
+
+	public interface FVecScalarOP {
+		FVec apply(FVec v, F k);
+	}
+
+	// /////////////////////////
 
 	public interface Fop {
 		F apply(F a, F b);
@@ -45,64 +87,130 @@ public class LambdaImage {
 	}
 
 	public interface AVecProjector {
-		float value(AVec V);
+		double value(AVec V);
 	}
 
 	public interface Aproperty {
-		float value(A a);
+		double value(A a);
 	}
 
-	public static void main(String[] args) {
+	public static int H = 768;
+	public static int W = 1024;
+	private static double PI = 0;
+
+	public static void main(String[] args) throws IOException {
 		DesktopAssembler.setup();
+		PI = FloatMath.PI();
+
+		F image = (x, y) -> (sin(x / PI) + sin(y / PI));
+
+		// drop("input.png", image);
+		image = load("input.png");
 
 		F FZero = (x, y) -> 0f;
 		F FOne = (x, y) -> 1f;
 
-		A dFdx = f -> ((x, y) -> (f.value(x + 1, y) - f.value(x - 1, y)) / 2f);
-		A dFdy = f -> ((x, y) -> (f.value(x, y + 1) - f.value(x, y - 1)) / 2f);
+		A ddx = f -> ((x, y) -> (f.value(x + 1, y) - f.value(x - 1, y)) / 2f);
+		A ddy = f -> ((x, y) -> (f.value(x, y + 1) - f.value(x, y - 1)) / 2f);
+
+		FSwitch FBoolean = flag -> {
+			if (flag)
+				return FOne;
+			return FZero;
+		};
+
+		FUnitVec Ek = k -> (i -> FBoolean.value(i == k));
+		FVec E0 = Ek.index(0);
+		FVec E1 = Ek.index(1);
 
 		Fop FplusF = (a, b) -> ((x, y) -> (a.value(x, y) + b.value(x, y)));
 		Fop FmuliplyF = (a, b) -> ((x, y) -> (a.value(x, y) * b.value(x, y)));
 
-		A A0 = f -> FZero;
-		A A1 = f -> FOne;
+		FVecOP FVecSum = (a, b) -> (i -> (FplusF.apply(a.index(i), b.index(i))));
+		FVecOP FVecMul = (a, b) -> (i -> (FmuliplyF.apply(a.index(i), b.index(i))));
+		FVecScalarOP FVecMulS = (V, s) -> (i -> (FmuliplyF.apply(V.index(i), s)));
 
-		// a: f->F
-		// b: f->F
-		Aop FFplusFF = (a, b) -> (f -> FplusF.apply(a.apply(f), b.apply(f)));
-		Aop FFmultiplyFF = (a, b) -> (f -> FmuliplyF.apply(a.apply(f), b.apply(f)));
+		G gradient = f -> FVecSum.apply(FVecMulS.apply(E0, ddx.apply(f)), FVecMulS.apply(E1, ddy.apply(f)));
 
-		Aswitch FnBoolean = flag -> {
-			if (flag)
-				return A1;
-			return A0;
-		};
+		FVec gradF = gradient.apply(image);
 
-		AUnitVector Ek = k -> (i -> FnBoolean.value(i == k));
-		AVec E0 = Ek.index(0);
-		AVec E1 = Ek.index(1);
+		F gradX = ddx.apply(image);
+		F gradY = ddy.apply(image);
 
-		AVecScalarOp F2FVecMupliplyK = (v, k) -> (i -> FFmultiplyFF.apply(v.index(i), k));
-		AVecVectorOp F2FVecSum = (a, b) -> (i -> FFplusFF.apply(a.index(i), b.index(i)));
+		F Go = gradF.index(0);
+		F G1 = gradF.index(1);
 
-		Operator gradient = f -> F2FVecSum.apply(F2FVecMupliplyK.apply(E0, dFdx), F2FVecMupliplyK.apply(E1, dFdy));
+		FVecF norm2_a = v -> ((x, y) -> sqrt(square(v.index(0).value(x, y)) + square(v.index(1).value(x, y))));
+		// FVecF norm2_b = v -> ((x, y) -> sqrt(square(gradX.value(x, y)) +
+		// square(gradY.value(x, y))));
 
-		F image = (x, y) -> (-1 * (cos(2 * x) + cos(2 * y)) * 2);
-		AVec gradImage = gradient.apply(image);
-		// L.d("sketchy", sketchy.toString());
+		F sketchy = norm2_a.apply(gradF);
+		F sketchy2 = ((x, y) -> sqrt(square(gradX.value(x, y)) + square(gradY.value(x, y))));
 
-		F gradX = dFdx.apply(image);
-
-//		A gradX = gradImage.index(0);
-//		A gradY = gradImage.index(1);
+		drop("sketchy.png", sketchy);
+		drop("sketchy2.png", sketchy2);
 
 	}
 
-	static float cos(double x) {
-		return (float) Math.cos(x);
+	private static F load(String file_name) throws IOException {
+		File image_file = LocalFileSystem.ApplicationHome().child(file_name);
+		BufferedImage buff_image = ImageProcessing.readJavaImage(image_file);
+		ColorFunctionSpecs color_function_specs = ImageProcessing.newColorFunctionSpecs();
+		color_function_specs.setJavaImage(buff_image);
+		ColorFunction image = ImageProcessing.newColorFunction(color_function_specs);
+		H = image.getHeight();
+		W = image.getWidth();
+		return (x, y) -> image.getValue((int) x, (int) y).getGrayscaleValue();
 	}
 
-	private static float abs(float value) {
+	private static void drop(String file_name, F image) throws IOException {
+
+		ColorFunctionSpecs img_specs = ImageProcessing.newColorFunctionSpecs();
+		img_specs.setHeight(H);
+		img_specs.setWidth(W);
+		ColorFunction image_F = ImageProcessing.newColorFunction(img_specs);
+		draw(image, image_F);
+		save(image_F, file_name);
+
+	}
+
+	private static void save(ColorFunction image_F, String file_name) throws IOException {
+		File image_file = LocalFileSystem.ApplicationHome().child(file_name);
+		Image javaImage = image_F.toJavaImage();
+		ImageProcessing.writeJavaFile(javaImage, image_file, "png");
+
+	}
+
+	private static void draw(F image, ColorFunction image_F) {
+		for (int i = 0; i < W; i++) {
+			for (int j = 0; j < H; j++) {
+				double x = i;
+				double y = j;
+				float gray = (float) FloatMath.limit(0, image.value(x, y), 1);
+				Color color_value = Colors.newGray(gray);
+				image_F.setValue(i, j, color_value);
+
+			}
+		}
+	}
+
+	private static double sqrt(double f) {
+		return Math.sqrt(f);
+	}
+
+	private static double square(double value) {
+		return value * value;
+	}
+
+	static double cos(double x) {
+		return Math.cos(x);
+	}
+
+	static double sin(double x) {
+		return Math.sin(x);
+	}
+
+	private static double abs(double value) {
 		return Math.abs(value);
 	}
 }
