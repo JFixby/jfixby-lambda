@@ -13,6 +13,8 @@ import com.jfixby.cmns.api.image.ColorFunctionSpecs;
 import com.jfixby.cmns.api.image.ImageProcessing;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.desktop.DesktopAssembler;
+import com.jfixby.cv.api.gwt.ImageGWT;
+import com.jfixby.cv.red.gwt.RedImageGWTComponent;
 
 public class LambdaImage {
 
@@ -100,6 +102,7 @@ public class LambdaImage {
 
 	public static void main(String[] args) throws IOException {
 		DesktopAssembler.setup();
+		ImageGWT.installComponent(new RedImageGWTComponent());
 		PI = FloatMath.PI();
 
 		F image = (x, y) -> (sin(x / PI) + sin(y / PI));
@@ -170,10 +173,8 @@ public class LambdaImage {
 
 	private static F load(String file_name) throws IOException {
 		File image_file = LocalFileSystem.ApplicationHome().child(file_name);
-		BufferedImage buff_image = ImageProcessing.readJavaImage(image_file);
-		ColorFunctionSpecs color_function_specs = ImageProcessing.newColorFunctionSpecs();
-		color_function_specs.setJavaImage(buff_image);
-		ColorFunction image = ImageProcessing.newColorFunction(color_function_specs);
+		BufferedImage buff_image = ImageGWT.readJavaImage(image_file);
+		ColorFunction image = ImageGWT.newColorFunction(buff_image);
 		H = image.getHeight();
 		W = image.getWidth();
 		return (x, y) -> image.getValue((int) x, (int) y).getGrayscaleValue();
@@ -193,7 +194,7 @@ public class LambdaImage {
 	private static void save(ColorFunction image_F, String file_name) throws IOException {
 		File image_file = LocalFileSystem.ApplicationHome().child(file_name);
 		Image javaImage = image_F.toJavaImage();
-		ImageProcessing.writeJavaFile(javaImage, image_file, "png");
+		ImageGWT.writeJavaFile(javaImage, image_file, "png");
 
 	}
 
