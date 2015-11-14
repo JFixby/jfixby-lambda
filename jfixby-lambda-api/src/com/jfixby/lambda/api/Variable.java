@@ -1,11 +1,7 @@
 package com.jfixby.lambda.api;
 
-public interface Variable<T> {
+public interface Variable<T> extends λFunction<T> {
 
-	public T evaluate();
-
-	public void setValue(T value);
-
-	public T getValue();
+	public void set(T value);
 
 }
