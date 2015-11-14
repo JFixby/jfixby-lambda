@@ -12,7 +12,27 @@ public class MemoizationTest {
 	/*
 	 * Factorial λ-function
 	 */
-	static public λFunction<Integer, Long> FACTORIAL = setupExpression();
+	public static λFunction<Integer, Long> FACTORIAL = setupExpression();
+
+	static final λFunction<Integer, Long> setupExpression() {
+		return k -> {
+			if (k < 0) {
+				Err.reportError("k < 0");
+			}
+			if (k == 1) {
+				Sys.sleep(1000);
+				return 1L;
+			}
+			if (k == 0) {
+				return 1L;
+			}
+			final long result = k * FACTORIAL.val(k - 1);
+			if (result < 0) {
+				Err.reportError("Integer overflow");
+			}
+			return result;
+		};
+	}
 
 	public static void main(String[] args) {
 
@@ -33,26 +53,6 @@ public class MemoizationTest {
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));
 
-	}
-
-	private static λFunction<Integer, Long> setupExpression() {
-		return k -> {
-			if (k < 0) {
-				Err.reportError("k < 0");
-			}
-			if (k == 1) {
-				Sys.sleep(1000);
-				return 1L;
-			}
-			if (k == 0) {
-				return 1L;
-			}
-			final long result = k * FACTORIAL.val(k - 1);
-			if (result < 0) {
-				Err.reportError("Integer overflow");
-			}
-			return result;
-		};
 	}
 
 }
