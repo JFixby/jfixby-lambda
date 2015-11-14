@@ -47,7 +47,7 @@ public class MemoizationTest {
 		 * λ-function with Memoization: stores the results of expensive function
 		 * calls and returns the cached result when the same inputs occur again.
 		 */
-		FACTORIAL = Lambda.newFunction(FACTORIAL);
+		FACTORIAL = Lambda.cache(FACTORIAL);
 		L.d("Memoization enabled:");
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));
