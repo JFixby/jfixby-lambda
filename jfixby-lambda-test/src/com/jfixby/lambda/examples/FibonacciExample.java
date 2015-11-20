@@ -15,7 +15,6 @@ public class FibonacciExample {
 
 	static final λFunction<Integer, Long> setupExpression() {
 		return k -> {
-			L.d("", k);
 			if (k < 0) {
 				Err.reportError("k < 0");
 			}
