@@ -1,4 +1,4 @@
-package com.jfixby.lambda.test;
+package com.jfixby.lambda.examples;
 
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
@@ -7,7 +7,7 @@ import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.sys.Sys;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 
-public class MemoizationTest {
+public class FactorialUsualJava {
 
 	/*
 	 * Factorial λ-function
@@ -15,22 +15,24 @@ public class MemoizationTest {
 	public static λFunction<Integer, Long> FACTORIAL = setupExpression();
 
 	static final λFunction<Integer, Long> setupExpression() {
-		return k -> {
-			if (k < 0) {
-				Err.reportError("k < 0");
-			}
-			if (k == 1) {
-				Sys.sleep(1000);
-				return 1L;
-			}
-			if (k == 0) {
-				return 1L;
-			}
-			final long result = k * FACTORIAL.val(k - 1);
-			if (result < 0) {
-				Err.reportError("Integer overflow");
-			}
-			return result;
+		return new λFunction<Integer, Long>() {
+			@Override
+			public Long val(Integer input) {
+				if (input < 0) {
+					Err.reportError("k < 0");
+				}
+				if (input == 1) {
+					return 1L;
+				}
+				if (input == 0) {
+					return 1L;
+				}
+				final long result = input * FACTORIAL.val(input - 1);
+				if (result < 0) {
+					Err.reportError("Integer overflow");
+				}
+				return result;
+			};
 		};
 	}
 
