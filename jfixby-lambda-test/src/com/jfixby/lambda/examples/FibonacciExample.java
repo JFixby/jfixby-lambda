@@ -10,6 +10,9 @@ import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class FibonacciExample {
 
+	public static final BigInteger ONE = BigInteger.ONE;
+	public static final BigInteger ZERO = BigInteger.ZERO;
+
 	/*
 	 * Fibonacci λ-function
 	 */
@@ -18,19 +21,21 @@ public class FibonacciExample {
 	static final λFunction<BigInteger, BigInteger> setupExpression() {
 		return k -> {
 			L.d("computing", k);
-			if (k.compareTo(BigInteger.ZERO) < 0) {
+			if (k.compareTo(ZERO) < 0) { // k < 0
 				Err.reportError("k < 0");
 			}
-			if (k.compareTo(BigInteger.ONE) == 0) {
-				return BigInteger.ONE;
+			if (k.equals(ONE)) {
+				return ONE;
 			}
-			if (k.compareTo(BigInteger.ZERO) == 0) {
-				return BigInteger.ZERO;
+			if (k.equals(ZERO)) {
+				return ONE;
 			}
-			BigInteger m1 = k.subtract(BigInteger.ONE);
-			BigInteger m2 = m1.subtract(BigInteger.ONE);
-			final BigInteger result = FIBONACCI.val(m1).add(FIBONACCI.val(m2));
-			if (result.compareTo(BigInteger.ZERO) < 0) {
+			final BigInteger m1 = k.subtract(ONE);// k-1
+			final BigInteger m2 = m1.subtract(ONE);// k-2
+			final BigInteger fm1 = FIBONACCI.val(m1);// F(k-1)
+			final BigInteger fm2 = FIBONACCI.val(m2);// F(k-2)
+			final BigInteger result = fm1.add(fm2); // F(k-1) + F(k-2)
+			if (result.compareTo(BigInteger.ZERO) < 0) {// result < 0
 				Err.reportError("Integer overflow");
 			}
 			// L.d("result", result);
