@@ -35,7 +35,7 @@ public class FibonacciExample {
 			final BigInteger fm1 = FIBONACCI.val(m1);// F(k-1)
 			final BigInteger fm2 = FIBONACCI.val(m2);// F(k-2)
 			final BigInteger result = fm1.add(fm2); // F(k-1) + F(k-2)
-			if (result.compareTo(BigInteger.ZERO) < 0) {// result < 0
+			if (result.compareTo(ZERO) < 0) {// result < 0
 				Err.reportError("Integer overflow");
 			}
 			// L.d("result", result);
