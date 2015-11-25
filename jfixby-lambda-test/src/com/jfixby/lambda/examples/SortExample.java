@@ -3,17 +3,17 @@ package com.jfixby.lambda.examples;
 import java.util.Spliterator;
 
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.lambda.λFunction;
+import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 
 public class SortExample {
 
-	public static λFunction<EditableCollection<Comparable>, Void> MERGE_SORT = setupExpression();
+	public static λFunction<EditableCollection<Int>, EditableCollection<Int>> MERGE_SORT = setupExpression();
 
-	static final λFunction<EditableCollection<Comparable>, Void> setupExpression() {
+	static final λFunction<EditableCollection<Int>, EditableCollection<Int>> setupExpression() {
 		return collection -> {
-			Spliterator<Comparable> split = collection.spliterator();
+			Spliterator<Int> split = collection.spliterator();
 			return null;
 		};
 	}
@@ -22,10 +22,14 @@ public class SortExample {
 
 		DesktopAssembler.setup();
 
-		EditableCollection<Comparable> input_integers = JUtils.newList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		EditableCollection<Int> input_Ints = JUtils.newList(newInt(1), newInt(3), newInt(2), newInt(1), newInt(4), newInt(0));
+		input_Ints.print("input_Ints");
+		MERGE_SORT.val(input_Ints);
 
-		MERGE_SORT.val(input_integers);
+	}
 
+	private static Int newInt(int i) {
+		return new Int(i);
 	}
 
 }
