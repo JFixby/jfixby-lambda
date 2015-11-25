@@ -1,5 +1,7 @@
 package com.jfixby.lambda.examples;
 
+import java.util.Spliterator;
+
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.lambda.λFunction;
@@ -11,6 +13,7 @@ public class SortExample {
 
 	static final λFunction<EditableCollection<Comparable>, Void> setupExpression() {
 		return collection -> {
+			Spliterator<Comparable> split = collection.spliterator();
 			return null;
 		};
 	}
