@@ -5,7 +5,9 @@ import java.util.Random;
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
+import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
+import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.sys.Sys;
@@ -17,12 +19,16 @@ public class MergeSortExample {
 
 	public static void main(String[] args) {
 		DesktopAssembler.setup();
+		// setup
+		λFunctionCache<Collection<Integer>, Collection<Integer>> cache = Lambda.newArrayCache();
 
-		DesktopMergeSort<Integer> MERGE_SORT = new DesktopMergeSort<Integer>();
+		λFunction<Collection<Integer>, Collection<Integer>> MERGE_SORT = new DesktopMergeSort<Integer>(cache);
+
+		// test
 		int number_of_elements = 50;
 		for (int test = 0; test < 100; test++) {
 			long seed = Sys.SystemTime().currentTimeMillis();
-			EditableCollection<Integer> input = generateInput(number_of_elements, seed, 0, 9);
+			Collection<Integer> input = generateInput(number_of_elements, seed, 0, 9);
 			L.d();
 			L.d("---sorting------------------------------------------------------------------------------------");
 			L.d("input ", input.toString());
@@ -31,8 +37,8 @@ public class MergeSortExample {
 			L.d("sorted", sorted.toString());
 
 		}
-		MERGE_SORT.printCache();
-		// cache.print("cache");
+		// MERGE_SORT.printCache();
+		cache.print("cache");
 
 	}
 
