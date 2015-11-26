@@ -47,7 +47,7 @@ public class SortExample {
 				JUtils.arrayCopy(input_list, 0, head, N / 2);
 				JUtils.arrayCopy(input_list, N / 2, tail, N - N / 2);
 
-				System.out.print(".");// weight indicator
+				System.out.print("x");// weight indicator
 				sorted_tail = MERGE_SORT.val(tail);
 				sorted_head = MERGE_SORT.val(head);
 			}
@@ -86,13 +86,14 @@ public class SortExample {
 		λFunctionCache<Collection<Comparable>, Collection<Comparable>> cache = Lambda.newArrayCache();
 		MERGE_SORT = Lambda.cache(MERGE_SORT, cache);
 
-		int number_of_elements = 1000;
-		for (int test = 0; test < 1000; test++) {
+		int number_of_elements = 50;
+		for (int test = 0; test < 100; test++) {
 			long seed = Sys.SystemTime().currentTimeMillis();
-			EditableCollection<Comparable> input = generateInput(number_of_elements, seed, 0, 5);
+			EditableCollection<Comparable> input = generateInput(number_of_elements, seed, 0, 9);
 			L.d();
 			L.d("---sorting------------------------------------------------------------------------------------");
 			sort(input);
+
 		}
 		cache.print("cache");
 
@@ -100,7 +101,7 @@ public class SortExample {
 
 	private static EditableCollection<Comparable> generateInput(int number, long seed, long from, long to) {
 		Random random = new Random(seed);
-		long segment = to - from;
+		long segment = to - from + 1;
 		List<Comparable> result = JUtils.newList();
 		for (int i = 0; i < number; i++) {
 			long random_value = from + FloatMath.floorDown(random.nextFloat() * segment);
@@ -113,9 +114,10 @@ public class SortExample {
 	}
 
 	private static void sort(Collection<Comparable> input) {
-		// input.print("input");
+		L.d("input ", input.toString());
 		Collection<Comparable> sorted = MERGE_SORT.val(input);
-		// sorted.print("sorted");
+		L.d();
+		L.d("sorted", sorted.toString());
 	}
 
 }
