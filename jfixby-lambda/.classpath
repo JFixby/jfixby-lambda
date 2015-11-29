@@ -5,8 +5,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cmns-red-desktop"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-lambda-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-lambda-red"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cv-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jfixby-cv-red"/>
 	<classpathentry kind="output" path="bin"/>
