@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.JUtils;
+import com.jfixby.cmns.api.collections.Collections;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
@@ -12,8 +12,8 @@ import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.cmns.collections.DesktopMergeSort;
 import com.jfixby.cmns.desktop.DesktopAssembler;
-import com.jfixby.cmns.jutils.desktop.DesktopMergeSort;
 
 public class MergeSortExample {
 
@@ -45,7 +45,7 @@ public class MergeSortExample {
 	private static EditableCollection<Integer> generateInput(int number, long seed, long from, long to) {
 		Random random = new Random(seed);
 		long segment = to - from + 1;
-		List<Integer> result = JUtils.newList();
+		List<Integer> result = Collections.newList();
 		for (int i = 0; i < number; i++) {
 			int random_value = (int) (from + FloatMath.floorDown(random.nextFloat() * segment));
 			result.add(random_value);
