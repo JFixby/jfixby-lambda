@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.collections.EditableCollection;
+import com.jfixby.cmns.api.collections.JUtils;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
@@ -11,7 +12,6 @@ import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.sys.Sys;
-import com.jfixby.cmns.api.util.JUtils;
 import com.jfixby.cmns.desktop.DesktopAssembler;
 import com.jfixby.cmns.jutils.desktop.DesktopMergeSort;
 
