@@ -3,8 +3,8 @@ package com.jfixby.lambda.examples;
 import java.util.Random;
 
 import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.Collections;
+import com.jfixby.cmns.api.collections.EditableCollection;
 import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
