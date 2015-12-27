@@ -12,8 +12,8 @@ import com.jfixby.cmns.api.lambda.λFunctionCache;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.cmns.api.math.FloatMath;
 import com.jfixby.cmns.api.sys.Sys;
-import com.jfixby.cmns.collections.DesktopMergeSort;
 import com.jfixby.cmns.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.collections.DesktopMergeSort;
 
 public class MergeSortExample {
 
