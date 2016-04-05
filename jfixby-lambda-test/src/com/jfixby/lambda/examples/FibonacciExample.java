@@ -1,3 +1,4 @@
+
 package com.jfixby.lambda.examples;
 
 import java.math.BigInteger;
@@ -7,6 +8,7 @@ import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.log.L;
 import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.lambda.RedLambda;
 
 public class FibonacciExample {
 
@@ -18,7 +20,7 @@ public class FibonacciExample {
 	 */
 	public static λFunction<BigInteger, BigInteger> FIBONACCI = setupExpression();
 
-	static final λFunction<BigInteger, BigInteger> setupExpression() {
+	static final λFunction<BigInteger, BigInteger> setupExpression () {
 		return k -> {
 			L.d("computing", k);
 			if (k.compareTo(ZERO) < 0) { // k < 0
@@ -28,7 +30,7 @@ public class FibonacciExample {
 				return ONE;
 			}
 			if (k.equals(ZERO)) {
-				return ONE;
+				return ZERO;
 			}
 			final BigInteger m1 = k.subtract(ONE);// k-1
 			final BigInteger m2 = m1.subtract(ONE);// k-2
@@ -43,18 +45,18 @@ public class FibonacciExample {
 		};
 	}
 
-	public static void main(String[] args) {
+	public static void main (String[] args) {
 		DesktopAssembler.setup();
+		Lambda.installComponent(new RedLambda());
 
-		BigInteger input_value = new BigInteger("10");
+		BigInteger input_value = new BigInteger(300 + "");
 
 		// No memoization: O(n^2) operations
-		L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
+		// L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
 
 		/*
-		 * λ-function with Memoization: stores the results of expensive function
-		 * calls and returns the cached result when the same inputs occur again.
-		 * O(n) operations
+		 * λ-function with Memoization: stores the results of expensive function calls and returns the cached result when the same
+		 * inputs occur again. O(n) operations
 		 */
 		FIBONACCI = Lambda.cache(FIBONACCI);
 		L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
