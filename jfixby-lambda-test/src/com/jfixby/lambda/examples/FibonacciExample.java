@@ -3,6 +3,7 @@ package com.jfixby.lambda.examples;
 
 import java.math.BigInteger;
 
+import com.jfixby.cmns.api.debug.Debug;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
@@ -22,24 +23,28 @@ public class FibonacciExample {
 
 	static final λFunction<BigInteger, BigInteger> setupExpression () {
 		return k -> {
+			Debug.checkNull("input", k);
+
 			L.d("computing", k);
+
 			if (k.compareTo(ZERO) < 0) { // k < 0
-				Err.reportError("k < 0");
+				Err.reportError("k < 0 : " + k);
 			}
+
 			if (k.equals(ONE)) {
 				return ONE;
 			}
+
 			if (k.equals(ZERO)) {
 				return ZERO;
 			}
+
 			final BigInteger m1 = k.subtract(ONE);// k-1
 			final BigInteger m2 = m1.subtract(ONE);// k-2
 			final BigInteger fm1 = FIBONACCI.val(m1);// F(k-1)
 			final BigInteger fm2 = FIBONACCI.val(m2);// F(k-2)
 			final BigInteger result = fm1.add(fm2); // F(k-1) + F(k-2)
-			if (result.compareTo(ZERO) < 0) {// result < 0
-				Err.reportError("Integer overflow");
-			}
+
 			// L.d("result", result);
 			return result;
 		};
@@ -51,7 +56,8 @@ public class FibonacciExample {
 
 		BigInteger input_value = new BigInteger(300 + "");
 
-		// No memoization: O(n^2) operations
+		/* No memoization: O(n^2) operations */
+
 		// L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
 
 		/*
