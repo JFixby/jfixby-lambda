@@ -56,13 +56,13 @@ public class FibonacciExample {
 
 		BigInteger input_value = new BigInteger(300 + "");
 
-		/* No memoization: O(n^2) operations */
+		/* No memoization: O(2^n) operations */
 
 		// L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
 
 		/*
 		 * λ-function with Memoization: stores the results of expensive function calls and returns the cached result when the same
-		 * inputs occur again. O(n) operations
+		 * inputs occur again. O(n^2) operations
 		 */
 		FIBONACCI = Lambda.cache(FIBONACCI);
 		L.d("FIBONACCI(" + input_value + ")", FIBONACCI.val(input_value));
