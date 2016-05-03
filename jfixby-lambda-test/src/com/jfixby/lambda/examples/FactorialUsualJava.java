@@ -4,7 +4,7 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 
 public class FactorialUsualJava {
 
@@ -37,7 +37,7 @@ public class FactorialUsualJava {
 
 	public static void main(String[] args) {
 
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 
 		L.d("No memoization:");
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));

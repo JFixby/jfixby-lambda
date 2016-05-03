@@ -8,7 +8,7 @@ import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopAssembler;
+import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.lambda.RedLambda;
 
 public class FibonacciExample {
@@ -51,7 +51,7 @@ public class FibonacciExample {
 	}
 
 	public static void main (String[] args) {
-		DesktopAssembler.setup();
+		DesktopSetup.deploy();
 		Lambda.installComponent(new RedLambda());
 
 		BigInteger input_value = new BigInteger(300 + "");
