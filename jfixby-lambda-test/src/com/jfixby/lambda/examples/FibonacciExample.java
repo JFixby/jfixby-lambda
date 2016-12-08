@@ -4,11 +4,11 @@ package com.jfixby.lambda.examples;
 import java.math.BigInteger;
 
 import com.jfixby.cmns.api.debug.Debug;
+import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.log.L;
-import com.jfixby.red.desktop.DesktopSetup;
 import com.jfixby.red.lambda.RedLambda;
 
 public class FibonacciExample {
