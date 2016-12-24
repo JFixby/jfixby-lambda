@@ -1,9 +1,9 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.collections.Collection;
 import com.jfixby.cmns.api.lambda.LambdaComponent;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
+import com.jfixby.scarabei.api.collections.Collection;
 
 public class RedLambda implements LambdaComponent {
 

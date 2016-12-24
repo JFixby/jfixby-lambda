@@ -2,12 +2,12 @@ package com.jfixby.lambda.examples;
 
 import java.util.Comparator;
 
-import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.List;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
+import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
 
 public class DesktopMergeSort<T> implements λFunction<Collection<T>, Collection<T>> {
 

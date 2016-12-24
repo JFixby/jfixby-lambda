@@ -1,10 +1,10 @@
 package com.jfixby.lambda.examples;
 
-import com.jfixby.cmns.api.desktop.DesktopSetup;
-import com.jfixby.cmns.api.err.Err;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.cmns.api.log.L;
+import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.err.Err;
+import com.jfixby.scarabei.api.log.L;
 
 public class FactorialUsualJava {
 

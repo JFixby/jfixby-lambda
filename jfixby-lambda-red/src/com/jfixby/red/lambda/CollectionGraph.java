@@ -1,9 +1,9 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
-import com.jfixby.cmns.api.log.L;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.Map;
+import com.jfixby.scarabei.api.log.L;
 
 public class CollectionGraph<X, Y> implements λFunctionCache<X, Y> {
 

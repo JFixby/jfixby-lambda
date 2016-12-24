@@ -2,17 +2,17 @@ package com.jfixby.lambda.examples;
 
 import java.util.Random;
 
-import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.EditableCollection;
-import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.desktop.DesktopSetup;
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
-import com.jfixby.cmns.api.log.L;
-import com.jfixby.cmns.api.math.FloatMath;
-import com.jfixby.cmns.api.sys.Sys;
+import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.EditableCollection;
+import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.api.math.FloatMath;
+import com.jfixby.scarabei.api.sys.Sys;
 
 public class MergeSortExample {
 

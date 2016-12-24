@@ -1,10 +1,10 @@
 package com.jfixby.red.lambda;
 
-import com.jfixby.cmns.api.collections.Collection;
-import com.jfixby.cmns.api.collections.Collections;
-import com.jfixby.cmns.api.collections.List;
-import com.jfixby.cmns.api.collections.Map;
 import com.jfixby.cmns.api.lambda.λFunctionCache;
+import com.jfixby.scarabei.api.collections.Collection;
+import com.jfixby.scarabei.api.collections.Collections;
+import com.jfixby.scarabei.api.collections.List;
+import com.jfixby.scarabei.api.collections.Map;
 
 public class ArrayCache<Q, T> implements λFunctionCache<Collection<Q>, T> {
 	private float max_array_size;

@@ -1,7 +1,7 @@
 package com.jfixby.red.lambda;
 
 import com.jfixby.cmns.api.lambda.λFunctionCache;
-import com.jfixby.cmns.api.log.L;
+import com.jfixby.scarabei.api.log.L;
 
 public class EmptyGraph<X, Y> implements λFunctionCache<X, Y> {
 
