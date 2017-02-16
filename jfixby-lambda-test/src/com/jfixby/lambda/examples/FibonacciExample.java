@@ -7,7 +7,7 @@ import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.red.lambda.RedLambda;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 
@@ -51,7 +51,7 @@ public class FibonacciExample {
 	}
 
 	public static void main (String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		Lambda.installComponent(new RedLambda());
 
 		BigInteger input_value = new BigInteger(300 + "");

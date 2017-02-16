@@ -9,7 +9,7 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.sys.Sys;
@@ -17,7 +17,7 @@ import com.jfixby.scarabei.api.sys.Sys;
 public class MergeSortExample {
 
 	public static void main(String[] args) {
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 		// setup
 		λFunctionCache<Collection<Integer>, Collection<Integer>> cache = Lambda.newArrayCache();
 

@@ -2,7 +2,7 @@ package com.jfixby.lambda.examples;
 
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.scarabei.api.desktop.DesktopSetup;
+import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
 
@@ -37,7 +37,7 @@ public class FactorialUsualJava {
 
 	public static void main(String[] args) {
 
-		DesktopSetup.deploy();
+		ScarabeiDesktop.deploy();
 
 		L.d("No memoization:");
 		L.d("FACTORIAL(5)", FACTORIAL.val(5));
