@@ -2,8 +2,8 @@ package com.jfixby.lambda.test;
 
 import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
-import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.red.desktop.ScarabeiDesktop;
 
 public class CompositionTest {
 

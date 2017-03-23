@@ -7,9 +7,9 @@ import com.jfixby.cmns.api.lambda.Lambda;
 import com.jfixby.cmns.api.lambda.λFunction;
 import com.jfixby.red.lambda.RedLambda;
 import com.jfixby.scarabei.api.debug.Debug;
-import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.err.Err;
 import com.jfixby.scarabei.api.log.L;
+import com.jfixby.scarabei.red.desktop.ScarabeiDesktop;
 
 public class FibonacciExample {
 

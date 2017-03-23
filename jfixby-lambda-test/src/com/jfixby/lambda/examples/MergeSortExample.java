@@ -9,10 +9,10 @@ import com.jfixby.scarabei.api.collections.Collection;
 import com.jfixby.scarabei.api.collections.Collections;
 import com.jfixby.scarabei.api.collections.EditableCollection;
 import com.jfixby.scarabei.api.collections.List;
-import com.jfixby.scarabei.api.desktop.ScarabeiDesktop;
 import com.jfixby.scarabei.api.log.L;
 import com.jfixby.scarabei.api.math.FloatMath;
 import com.jfixby.scarabei.api.sys.Sys;
+import com.jfixby.scarabei.red.desktop.ScarabeiDesktop;
 
 public class MergeSortExample {
 
