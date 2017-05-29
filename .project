@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>jfixby-lambda-test</name>
-	<comment></comment>
+	<name>jfixby-lambda</name>
+	<comment>Project jfixby-lambda created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

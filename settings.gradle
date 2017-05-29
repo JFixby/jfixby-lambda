@@ -1,0 +1,3 @@
+include 'jfixby-lambda-api'
+include 'jfixby-lambda-red'
+include 'jfixby-lambda-test'
