@@ -1,21 +1,16 @@
+
 package com.jfixby.red.lambda;
 
 import com.jfixby.cmns.api.lambda.λFunctionCache;
-import com.jfixby.scarabei.api.log.L;
 
 public class EmptyGraph<X, Y> implements λFunctionCache<X, Y> {
 
 	@Override
-	final public void print(String tag) {
-		L.d("EmptyGraph");
-	}
-
-	@Override
-	public Y get(X value_number) {
+	public Y get (final X value_number) {
 		return null;
 	}
 
 	@Override
-	public void put(X value_number, Y value) {
+	public void put (final X value_number, final Y value) {
 	}
 }

@@ -1,3 +1,4 @@
+
 package com.jfixby.lambda.examples;
 
 import java.util.Random;
@@ -16,37 +17,36 @@ import com.jfixby.scarabei.red.desktop.ScarabeiDesktop;
 
 public class MergeSortExample {
 
-	public static void main(String[] args) {
+	public static void main (final String[] args) {
 		ScarabeiDesktop.deploy();
 		// setup
-		λFunctionCache<Collection<Integer>, Collection<Integer>> cache = Lambda.newArrayCache();
+		final λFunctionCache<Collection<Integer>, Collection<Integer>> cache = Lambda.newArrayCache();
 
-		λFunction<Collection<Integer>, Collection<Integer>> MERGE_SORT = new DesktopMergeSort<Integer>(cache);
+		final λFunction<Collection<Integer>, Collection<Integer>> MERGE_SORT = new DesktopMergeSort<>(cache);
 
 		// test
-		int number_of_elements = 50;
+		final int number_of_elements = 50;
 		for (int test = 0; test < 100; test++) {
-			long seed = Sys.SystemTime().currentTimeMillis();
-			Collection<Integer> input = generateInput(number_of_elements, seed, 0, 9);
+			final long seed = Sys.SystemTime().currentTimeMillis();
+			final Collection<Integer> input = generateInput(number_of_elements, seed, 0, 9);
 			L.d();
 			L.d("---sorting------------------------------------------------------------------------------------");
 			L.d("input ", input.toString());
-			Collection<Integer> sorted = MERGE_SORT.val(input);
+			final Collection<Integer> sorted = MERGE_SORT.val(input);
 			L.d();
 			L.d("sorted", sorted.toString());
 
 		}
 		// MERGE_SORT.printCache();
-		cache.print("cache");
 
 	}
 
-	private static EditableCollection<Integer> generateInput(int number, long seed, long from, long to) {
-		Random random = new Random(seed);
-		long segment = to - from + 1;
-		List<Integer> result = Collections.newList();
+	private static EditableCollection<Integer> generateInput (final int number, final long seed, final long from, final long to) {
+		final Random random = new Random(seed);
+		final long segment = to - from + 1;
+		final List<Integer> result = Collections.newList();
 		for (int i = 0; i < number; i++) {
-			int random_value = (int) (from + FloatMath.floorDown(random.nextFloat() * segment));
+			final int random_value = (int)(from + FloatMath.floorDown(random.nextFloat() * segment));
 			result.add(random_value);
 		}
 		// result.clear();
